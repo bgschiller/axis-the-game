@@ -21,7 +21,7 @@ app.use express.static('public')
 
 if app.get('env')=='development'
   app.use require('morgan')('dev') # logger
-  app.use require('connect-livereload')()
+  #app.use require('connect-livereload')()
 else 
   app.use require('morgan')('default')
 
