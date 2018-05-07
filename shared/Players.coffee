@@ -46,6 +46,8 @@ module.exports = class Players
     return _.where(@get(playerId).dots, {alive: true}).length > 0
 
   getNextDotIndex: (playerId) ->
+    dots = @get(playerId).dots
+    return if !dots
     for dot, index in @get(playerId).dots
       return index if dot.active and dot.alive
 
@@ -93,7 +95,7 @@ module.exports = class Players
               rand
             )
 
-            if dots.every((d) => Geometry.dist(point, d) > (2 * @constructor.DotRadius) + @constructor.DotDistanceMin) and 
+            if dots.every((d) => Geometry.dist(point, d) > (2 * @constructor.DotRadius) + @constructor.DotDistanceMin) and
                !obstacles.hitTest(point.x, point.y, @constructor.DotRadius)
 
               dot = {x: point.x, y: point.y, alive: true, active: false, expression: ''}
