@@ -75,7 +75,7 @@ module.exports = React.createClass(
 
   updateCanvasSize: ->
     newWidth = @state.scale * @getCanvas().clientWidth
-    newHeight = @state.scale * @getCanvas().clientHeight 
+    newHeight = @state.scale * @getCanvas().clientHeight
 
     if @state.canvasWidth != newWidth or @state.canvasHeight != newHeight
       @setState(canvasWidth: newWidth, canvasHeight: newHeight)
@@ -143,21 +143,21 @@ module.exports = React.createClass(
           active = dot.active and player.active and team.active
           @drawDot(context, dot, active)
           @drawText(
-            context, 
+            context,
             player.name,
             if dot.alive then @TEXT_COLOR else @DEAD_TEXT_COLOR,
             {x: dot.x, y: dot.y + 1}
           )
-          if dot.alive
-            @drawText(
-              context, 
-              dot.expression,
-              @TEXT_COLOR,
-              {x: dot.x, y: dot.y - 2}
-            )
-            if Expression.validate(dot.expression)
-              xMax = if dot.x > 0 then -StartedGameState.XMax else StartedGameState.XMax
-              @drawEntireFunction(context, Expression.makeFn(dot.expression, dot, xMax), @PREVIEW_FUNCTION_COLOR)
+          # if dot.alive
+          #   @drawText(
+          #     context,
+          #     dot.expression,
+          #     @TEXT_COLOR,
+          #     {x: dot.x, y: dot.y - 2}
+          #   )
+          #   if Expression.validate(dot.expression)
+          #     xMax = if dot.x > 0 then -StartedGameState.XMax else StartedGameState.XMax
+          #     @drawEntireFunction(context, Expression.makeFn(dot.expression, dot, xMax), @PREVIEW_FUNCTION_COLOR)
 
 
     fn = @props.data.gameState.fn
@@ -181,7 +181,7 @@ module.exports = React.createClass(
       units * (0.5 * @state.canvasHeight / StartedGameState.YMax)
     else
       units * (0.5 * @state.canvasWidth / StartedGameState.XMax)
-  
+
   # Convert game coordinates to canvas coordinates
   _g2c: (x,y) ->
     [
@@ -197,9 +197,9 @@ module.exports = React.createClass(
 
     context.beginPath()
     context.arc(
-      @_g2c(dot.x, dot.y)..., 
-      @_toPx(Players.DotRadius) - (scaledThickness/2), 
-      0, 
+      @_g2c(dot.x, dot.y)...,
+      @_toPx(Players.DotRadius) - (scaledThickness/2),
+      0,
       2*Math.PI
     )
     context.lineWidth = scaledThickness
@@ -221,7 +221,7 @@ module.exports = React.createClass(
 
       lastPoint = path[path.length - 1]
       context.moveTo(@_g2c(lastPoint.x, lastPoint.y)...)
-      
+
       for point in path
         context.lineTo(@_g2c(point.x, point.y)...)
       context.closePath()
